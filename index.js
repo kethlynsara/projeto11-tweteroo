@@ -11,18 +11,21 @@ let tweets = [];
 app.post("/sign-up", (req, res) => {
   const { username, avatar } = req.body;
   const signUp = { username, avatar };
+  
   users.push(signUp);
-  res.statusMessage = "OK";
-  res.status(200).end();
+  res.sendStatus(200);
 });
 
 app.post("/tweets", (req, res) => {
-  const { username, tweet } = req.body;
+  const username = req.headers.user;
+  const { tweet } = req.body;
   const data = { username, tweet };
+
   const usuario = users.find((user) => user.username === data.username);
   const tweetNovo = {...data, avatar: usuario.avatar};
+  
   tweets.push(tweetNovo);
-  res.status(200).send("OK");
+  res.sendStatus(200);
 });
 
 app.get("/tweets", (req, res) => {
