@@ -3,8 +3,12 @@
 - Twitter clone
 
 ## Features
-- Sign up - **POST** `/signup`
-- Tweets - **GET** `/tweets` and **POST** `/tweets`
+- Sign up 
+  - **POST** `/signup`
+- Tweets
+  - **GET** `/tweets`
+  - **GET** `/tweets/USERNAME`
+  - **POST** `/tweets`
   
 ## Technologies
 <div>
