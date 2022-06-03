@@ -8,12 +8,27 @@ app.use(express.json());
 let users = [];
 let tweets = [];
 
+app.get("/tweets", (req, res) => {
+  const tweets10 = tweets.slice(-10);
+  res.send(tweets10);
+});
+
+app.get("/tweets/:USERNAME", (req, res) => {
+  const { USERNAME } = req.params;
+
+  const userTweets = tweets.filter(tweet => {
+      if (tweet.username === USERNAME) return tweet;
+  });
+
+  res.send(userTweets)
+});
+
 app.post("/sign-up", (req, res) => {
   const { username, avatar } = req.body;
   const signUp = { username, avatar };
   
   users.push(signUp);
-  res.sendStatus(200);
+  res.sendStatus(201);
 });
 
 app.post("/tweets", (req, res) => {
@@ -25,12 +40,7 @@ app.post("/tweets", (req, res) => {
   const tweetNovo = {...data, avatar: usuario.avatar};
   
   tweets.push(tweetNovo);
-  res.sendStatus(200);
-});
-
-app.get("/tweets", (req, res) => {
-  const tweets10 = tweets.slice(-10);
-  res.send(tweets10);
+  res.sendStatus(201);
 });
 
 app.listen(5000);
