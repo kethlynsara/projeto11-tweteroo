@@ -25,7 +25,14 @@ app.get("/tweets/:USERNAME", (req, res) => {
 
 app.post("/sign-up", (req, res) => {
   const { username, avatar } = req.body;
-  const signUp = { username, avatar };
+  const signUp = { 
+    username,
+    avatar
+  };
+
+  if (!username || !avatar) {
+    res.sendStatus(400);
+  }
   
   users.push(signUp);
   res.sendStatus(201);
@@ -35,6 +42,10 @@ app.post("/tweets", (req, res) => {
   const username = req.headers.user;
   const { tweet } = req.body;
   const data = { username, tweet };
+
+  if (!username || !tweet) {
+    res.sendStatus(400);
+  }
 
   const usuario = users.find((user) => user.username === data.username);
   const tweetNovo = {...data, avatar: usuario.avatar};
